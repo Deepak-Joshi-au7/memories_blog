@@ -13,6 +13,8 @@ const app = express();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use("/uploads", express.static("uploads"));
+
 app.use(cors());
 
 app.get("/", (req, res, next) => {
@@ -20,18 +22,16 @@ app.get("/", (req, res, next) => {
   next();
 });
 
-app.use("/posts", posts);
-
-mongoose.connect(process.env.mongoURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+app.use("/posts", cors(), posts);
 
 //Mongo Database Connection
-const db = mongoose.connection;
-db.on("error", (error) => console.error(error));
-db.once("open", () => console.log("Connected to Mongoose Datebase.."));
-mongoose.set("useFindAndModify", false);
+mongoose
+  .connect(process.env.mongoURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to Mongoose Datebase.."))
+  .catch((error) => console.error(error));
 
 const port = process.env.PORT || 8080;
 
