@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import posts from "./routes/posts.js";
 import dotEnv from "dotenv";
+import morgan from "morgan";
 
 if (process.env.NODE_ENV !== "production") {
   dotEnv.config();
@@ -14,6 +15,7 @@ const app = express();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use("/uploads", express.static("uploads"));
+app.use(morgan("tiny"));
 
 app.use(cors());
 
