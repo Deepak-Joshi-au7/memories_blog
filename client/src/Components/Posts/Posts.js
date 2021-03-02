@@ -17,7 +17,13 @@ const Posts = ({ setCurrentId }) => {
       spacing={3}
     >
       {posts.map((post) => (
-        <Grid className={classes.smMargin} key={post._id} items xs={12} sm={6}>
+        <Grid
+          className={classes.smMargin}
+          key={post._id}
+          item={true}
+          xs={12}
+          sm={6}
+        >
           <Post
             className={classes.actionDiv}
             post={post}
