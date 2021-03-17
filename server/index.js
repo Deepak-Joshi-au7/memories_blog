@@ -1,30 +1,30 @@
-import express from "express";
-import bodyParser from "body-parser";
-import mongoose from "mongoose";
-import cors from "cors";
-import posts from "./routes/posts.js";
-import dotEnv from "dotenv";
-import morgan from "morgan";
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotEnv from 'dotenv';
+import express from 'express';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
+import posts from './routes/posts.js';
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== 'production') {
   dotEnv.config();
 }
 
 const app = express();
 
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use("/uploads", express.static("uploads"));
-app.use(morgan("tiny"));
+app.use(bodyParser.json({ limit: '30mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
+app.use('/uploads', express.static('uploads'));
+app.use(morgan('tiny'));
 
 app.use(cors());
 
-app.get("/", (req, res, next) => {
-  res.send("this is the home page!!!");
+app.get('/', (req, res, next) => {
+  res.send('this is the home page!!!');
   next();
 });
 
-app.use("/posts", cors(), posts);
+app.use('/posts', cors(), posts);
 
 //Mongo Database Connection
 mongoose
@@ -32,7 +32,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("Connected to Mongoose Datebase.."))
+  .then(() => console.log('Connected to Mongoose Datebase..'))
   .catch((error) => console.error(error));
 
 const port = process.env.PORT || 8080;

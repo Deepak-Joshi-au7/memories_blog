@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import useStyles from './formStyle';
-import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import { Button, Paper, TextField, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { newPost, updatedPost } from '../../actions/postsAction';
+import useStyles from './formStyle';
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
@@ -31,6 +31,7 @@ const Form = ({ currentId, setCurrentId }) => {
     } else {
       dispatch(newPost(postData));
     }
+    clear();
   };
   const clear = () => {
     setCurrentId(null);
